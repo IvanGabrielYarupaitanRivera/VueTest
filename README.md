@@ -1,48 +1,49 @@
-# test
+## Primer Archivo
 
-This template should help get you started developing with Vue 3 in Vite.
+export default defineConfig({
+plugins: [
+vue({
+template: {
+compilerOptions: {
+isCustomElement: (tag) => tag === 'encap-tutor',
+},
+},
+}),
+vueDevTools(),
+],
+resolve: {
+alias: {
+'@': fileURLToPath(new URL('./src', import.meta.url)),
+},
+},
+})
 
-## Recommended IDE Setup
+## Main Ts
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+import './assets/main.css'
+// Importar el punto de entrada del Web Component
+import './assets/tutor-widget/encap-tutor.js'
 
-## Recommended Browser Setup
+import { createApp } from 'vue'
+import App from './App.vue'
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+createApp(App).mount('#app')
 
-## Type Support for `.vue` Imports in TS
+## App.vue
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+  <main>
+    <TheWelcome />
 
-## Customize configuration
+    <!-- Renderiza el Web Component aquí -->
+    <encap-tutor
+      user-id="123"
+      course-id="abc"
+      module-id="module1"
+      student-name="Admin"
+      course-progress="50"
+    ></encap-tutor>
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-bun install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-bun dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-bun run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-bun lint
-```
+  </main>
+ 
+##  assets/tutor-widget
+encap-tutor.js
